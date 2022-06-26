@@ -3,11 +3,19 @@ class BooksController < ApplicationController
   end
 
   def index
+    @books = Books.all  
   end
 
-  def show
+   def show
+    @books = Books.find(params[:id])  
   end
 
-  def edit
+   def edit
+    @books = Books.find(params[:id])
+  end
+  
+  private
+  def books_params
+    params.require(:books).permit(:title, :body)
   end
 end
