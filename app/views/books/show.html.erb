@@ -1,2 +1,33 @@
-<h1>Lists#show</h1>
-<p>Find me in app/views/lists/show.html.erb</p>
+<h2>タイトル</h2>
+<p><%= @books.title %></p>
+
+<h2>本文</h2>
+<p><%= @books.body %></p>
+
+<h2>画像</h2>
+<% if @books.image.attached? %>
+  <%= image_tag @books.image, size: "300x300" %>
+<% else %>
+  <%= image_tag 'no_image', size: "300x300" %>
+<% end %>
+
+<%= link_to "編集", edit_books_path(@books.id) %>
+<%= link_to "削除", destroy_books_path(@books.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+
+
+<% if flash[:notice] %>
+  <div class="books books-primary" role="books">
+    <%= notice %>
+  </div>
+<% end %>
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
+<p>
+  <strong>Content:</strong>
+  <%= @books.content %>
+</p>
+
+<%= link_to '', edit_books_path(@books) %> |
+<%= link_to 'Back', books_path %>
