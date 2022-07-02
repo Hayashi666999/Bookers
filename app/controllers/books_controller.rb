@@ -16,11 +16,13 @@ class BooksController < ApplicationController
   end
 
   def update
-    books = Book.find(params[:id])
-    books.update(books_params)
-    redirect_to book_path(books.id)
+    @books = Book.find(params[:id])
+    if @books.update(books_params)
+    redirect_to book_path(@books.id)
     flash[:notice] = "Book was successfully update."
-
+    else
+   render :edit
+    end
   end
 
   def destroy
@@ -32,7 +34,7 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(books_params)
     if @book.save
-      redirect_to book_path(@book.id), flash: { notice: '記事の作成が作成されました。' }
+      redirect_to book_path(@book.id), flash: { notice: 'Book was successfully created.' }
     else
     @books = Book.all
       render :index
